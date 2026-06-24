@@ -1,0 +1,96 @@
+openapi: 3.0.3
+info:
+  title: Credit Service API
+  version: 1.0.0
+  description: Reactive Credit Microservice using RxJava + WebFlux
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+  /api/credits:
+    post:
+      summary: Create credit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credit'
+      responses:
+        '201':
+          description: Credit created
+
+    get:
+      summary: Get all credits
+      responses:
+        '200':
+          description: List of credits
+
+  /api/credits/{id}:
+    get:
+      summary: Get credit by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Credit found
+
+    put:
+      summary: Update credit
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credit'
+      responses:
+        '200':
+          description: Updated
+
+    delete:
+      summary: Delete credit
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Deleted
+
+  /api/credits/customer/{customerId}:
+    get:
+      summary: Get credits by customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+      responses:
+        '200':
+          description: List by customer
+
+components:
+  schemas:
+    Credit:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        type:
+          type: string
+          example: PERSONAL
+        amount:
+          type: number
+        balance:
+          type: number
+        status:
+          type: string

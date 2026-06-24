@@ -1,0 +1,21 @@
+  @startuml
+    actor Client
+    participant GW
+    participant CC
+    participant CS
+    participant REPO
+
+  Client -> GW: POST /api/credits/{id}/payment
+    
+    GW -> CC
+  CC -> CS: payCredit(id, amount)
+
+  CS -> REPO: findById(id)
+    REPO --> CS
+
+  CS -> REPO: save(updatedCredit)
+
+  CS --> CC: Completable
+    CC --> GW
+  GW --> Client: 200 OK
+    @enduml

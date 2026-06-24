@@ -1,0 +1,22 @@
+@startuml
+actor Client
+participant GW
+participant EU
+participant CC
+participant CS
+participant REPO
+
+Client -> GW: GET /api/credits
+GW -> EU: resolve service
+EU --> GW
+
+GW -> CC
+CC -> CS: findAll()
+
+CS -> REPO: findAll()
+REPO --> CS: Flux<Credit>
+
+CS --> CC: Observable<Credit>
+CC --> GW
+GW --> Client
+@enduml

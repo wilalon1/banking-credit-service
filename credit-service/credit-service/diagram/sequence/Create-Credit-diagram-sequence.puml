@@ -1,0 +1,24 @@
+@startuml
+actor Client
+
+participant "API Gateway" as GW
+participant "Eureka Server" as EU
+participant "Credit Controller" as CC
+participant "Credit Service (RxJava)" as CS
+participant "Mongo Reactive Repository" as REPO
+
+Client -> GW: POST /api/credits
+GW -> EU: Resolve CREDIT-SERVICE
+EU --> GW: service instance
+
+GW -> CC: forward request
+
+CC -> CS: create(credit)
+CS -> REPO: save(credit)
+
+REPO --> CS: Mono<Credit>
+CS --> CC: Single<Credit>
+
+CC --> GW: HTTP 201
+GW --> Client: Response JSON
+@enduml
