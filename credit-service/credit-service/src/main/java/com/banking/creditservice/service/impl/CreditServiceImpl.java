@@ -49,4 +49,20 @@ public class CreditServiceImpl implements CreditService {
                 repository.deleteById(id)
         );
     }
+
+    @Override
+    public Single<Boolean> hasCreditCard(String customerId) {
+
+        return Single.fromPublisher(
+
+                repository
+                        .findByCustomerId(customerId)
+                        .filter(c ->
+                                "CREDIT_CARD".equals(c.getType())
+                        )
+                        .hasElements()
+
+        );
+
+    }
 }

@@ -44,4 +44,11 @@ public class CreditController {
     public Completable delete(@PathVariable String id) {
         return service.delete(id);
     }
+
+    @GetMapping("/cards/customer/{customerId}")
+    public Single<Boolean> hasCreditCard(
+            @PathVariable String customerId) {
+
+        return service.hasCreditCard(customerId);
+    }
 }

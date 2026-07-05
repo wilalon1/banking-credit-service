@@ -16,4 +16,6 @@ public interface CreditService {
     Single<Credit> update(String id, Credit credit);
 
     Completable delete(String id);
+
+    Single<Boolean> hasCreditCard(String customerId);
 }
