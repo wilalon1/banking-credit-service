@@ -1,6 +1,5 @@
 server:
-  port: 0
-
+  port: 8083
 
 spring:
 
@@ -11,13 +10,53 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/credit-db
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: credit-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
 
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
+  cache:
+    type: redis
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/banking
+
+security:
+  jwt:
+    secret: secret-bank-1234567890
 
 eureka:
-
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
   instance:
     prefer-ip-address: true
+
+resilience4j:
+
+  circuitbreaker:
+    instances:
+      creditService:
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        failureRateThreshold: 50
+
+  timelimiter:
+    instances:
+      creditService:
+        timeoutDuration: 2s
