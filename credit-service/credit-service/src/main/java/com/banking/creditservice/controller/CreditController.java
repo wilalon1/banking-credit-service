@@ -78,7 +78,7 @@ public class CreditController {
             @PathVariable String creditId,
             @RequestBody CreditPaymentRequest request) {
         service.registrarPago(creditId, request.getPayerId(), request.getAmount());
-        return ResponseEntity.ok("Pago realizado correctamente.");
+        return ResponseEntity.ok("Payment made successfully.");
     }
 
 
