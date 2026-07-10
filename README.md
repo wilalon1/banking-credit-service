@@ -42,6 +42,7 @@ Este microservicio forma parte de una arquitectura basada en microservicios util
 - JaCoCo
 - Checkstyle
 
+
 ---
 
 ## Arquitectura
@@ -186,6 +187,12 @@ docs
 └── postman
     └── Colección de pruebas API  
 	
+#Otros
+Diagramas de sequencia	
+	
 ##Documentacion
 
 swagger  -> documentacion 
+
+#JWT
+Tambien se  agrego JWT.
