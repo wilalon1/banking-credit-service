@@ -52,13 +52,22 @@ public class InfrastructureConfig {
     @Value("${security.jwt.secret}")
     private String jwtSecret;
 
-    @Bean
+    /*@Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/actuator/**", "/auth/**").permitAll()
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> { }));
+        return http.build();
+    }*/
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http.csrf(csrf -> csrf.disable())
+                .authorizeExchange(exchanges -> exchanges
+                        .anyExchange().permitAll()
+                );
+
         return http.build();
     }
 
